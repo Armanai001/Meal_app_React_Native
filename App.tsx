@@ -10,8 +10,22 @@ export default function App() {
     return (
         <>
             <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Categories" component={CategoryScreen}/>
+
+                <Stack.Navigator
+                    screenOptions={{
+                        headerStyle: {backgroundColor: "#9d7e67"},
+                        contentStyle: {backgroundColor: "#2a1f17"}
+                        // We can set headerTintColor : "red" for changing heading color.
+                        // We can set these properties for every or for individual screens
+                    }}
+                >
+                    <Stack.Screen name="Categories"
+                                  component={CategoryScreen}
+                                  options={{
+                                      title: "All Categories",
+                                  }}
+
+                    />
                     <Stack.Screen name="Overview" component={MealsOverview}/>
                 </Stack.Navigator>
             </NavigationContainer>
