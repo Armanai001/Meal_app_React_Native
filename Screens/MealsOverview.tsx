@@ -14,8 +14,7 @@ export default function MealsOverview({route}: any) {
      * */
 
     const renderItem = (itemData: any) => {
-        return <MealItem title={itemData.item.title}
-        />
+        return <MealItem data={itemData.item} />
     }
     const categoryId = route.params.categoryId;
 
