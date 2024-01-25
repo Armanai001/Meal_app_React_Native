@@ -4,6 +4,7 @@
     "slug": "Meal_app_React_Native",
     "version": "1.0.0",
     "orientation": "portrait",
+    "backgroundColor": "#2a1f17",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
