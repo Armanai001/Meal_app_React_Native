@@ -1,8 +1,9 @@
 import {FlatList, StyleSheet, View} from "react-native";
 import MealItem from "../Components/MealItem";
-import {MEALS} from "../data/data";
+import {CATEGORIES, MEALS} from "../data/data";
+import {useLayoutEffect} from "react";
 
-export default function MealsOverview({route}: any) {
+export default function MealsOverview({route, navigation}: any) {
     /*
      * If we want to get access currently loaded route information in some nested component which is not registered as a screen
      *
@@ -14,10 +15,21 @@ export default function MealsOverview({route}: any) {
      * */
 
     const renderItem = (itemData: any) => {
-        return <MealItem data={itemData.item} />
+        return <MealItem data={itemData.item}/>
     }
     const categoryId = route.params.categoryId;
 
+    useLayoutEffect(() => {
+            // useEffect run after mounting but it runs before component mounting
+            const categoryTitle = CATEGORIES.find(item => item.id === categoryId)
+
+            if (categoryTitle) {
+                navigation.setOptions({
+                    title: categoryTitle.title
+                });
+            }
+        }, []
+    )
 
     const filterMeals = MEALS.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0);
 
