@@ -1,4 +1,6 @@
-import {StyleSheet, Text, View} from "react-native";
+import {FlatList, StyleSheet, View} from "react-native";
+import MealItem from "../Components/MealItem";
+import {MEALS} from "../data/data";
 
 export default function MealsOverview({route}: any) {
     /*
@@ -11,11 +13,23 @@ export default function MealsOverview({route}: any) {
      *
      * */
 
+    const renderItem = (itemData: any) => {
+        return <MealItem title={itemData.item.title}
+        />
+    }
     const categoryId = route.params.categoryId;
+
+
+    const filterMeals = MEALS.filter(meal => meal.categoryIds.indexOf(categoryId) >= 0);
+
+
     return <View style={styles.container}>
-        <Text style={styles.text}>
-            OverView of {categoryId}
-        </Text>
+
+        <FlatList data={filterMeals}
+                  renderItem={renderItem}
+                  keyExtractor={item => item.id}
+        />
+
     </View>
 }
 
@@ -23,8 +37,4 @@ const styles = StyleSheet.create({
     container: {
         margin: 20
     },
-    text: {
-        fontSize: 20,
-        color:'#8c0808'
-    }
 })
