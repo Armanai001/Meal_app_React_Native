@@ -1,8 +1,18 @@
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
 
 export default function MealItem({data}: { data: any }) {
 
+    type RootStackParamList = {
+        Detail: { mealId: string };
+    };
+
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
     const handlePress = () => {
+        navigation.navigate('Detail', {
+            mealId: data.id
+        })
 
     }
 

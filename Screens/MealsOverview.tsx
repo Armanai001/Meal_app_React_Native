@@ -46,6 +46,7 @@ export default function MealsOverview({route, navigation}: any) {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20
+        margin: 20,
+        flex: 1
     },
 })
