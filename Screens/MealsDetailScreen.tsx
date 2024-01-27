@@ -2,10 +2,26 @@ import {Image, ScrollView, StyleSheet, Text, View} from "react-native";
 import {MEALS} from "../data/data";
 import List from "../Components/List";
 import MealDescription from "../Components/MealDescription";
+import {useLayoutEffect} from "react";
+import IconButton from "../Components/IconButton";
 
-export default function MealsDetailScreen({route}: any) {
+export default function MealsDetailScreen({route, navigation}: any) {
     const mealId = route.params.mealId
     const meal = MEALS.find(item => item.id === mealId)
+
+    const favoriteButtonHandler = () => {
+        console.log('favoriteButtonHandler')
+    }
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <IconButton color='white' icon='star' onPress={favoriteButtonHandler}/>
+                )
+            }
+        });
+    }, [favoriteButtonHandler, navigation])
 
     return (
         <View>
@@ -42,8 +58,8 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         borderStyle: 'solid',
-        borderWidth:3,
-        borderRadius:10,
+        borderWidth: 3,
+        borderRadius: 10,
         borderColor: '#180b0b',
         backgroundColor: '#180b0b'
     },
