@@ -5,7 +5,7 @@ export default function CategoryGridTile({title, bgColor, onPress}: {
     bgColor: string,
     onPress: () => void
 }) {
-    return <Pressable android_ripple={{color: '#ccc'}}
+    return <Pressable android_ripple={{color: '#ccc', radius: 10}}
                       style={({pressed}) => [styles.container, {backgroundColor: bgColor}, pressed ? styles.buttonPressed : null]}
                       onPress={onPress}>
         <View>

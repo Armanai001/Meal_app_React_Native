@@ -1,5 +1,6 @@
 import {Image, Pressable, StyleSheet, Text, View} from "react-native";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
+import MealDescription from "./MealDescription";
 
 export default function MealItem({data}: { data: any }) {
 
@@ -17,18 +18,17 @@ export default function MealItem({data}: { data: any }) {
     }
 
     return (
-        <Pressable android_ripple={{color: '#ccc'}}
+        <Pressable android_ripple={{color: '#ccc', radius: 10}}
                    style={({pressed}) => [styles.container, pressed ? styles.buttonPressed : null]}
                    onPress={handlePress}>
             <View style={styles.main}>
                 <Image source={{uri: data.imageUrl}} style={styles.image}/>
                 <Text style={styles.title}>{data.title}</Text>
             </View>
-            <View style={styles.details}>
-                <Text>{data.complexity.toUpperCase()}</Text>
-                <Text>{data.duration} m</Text>
-                <Text>{data.affordability.toUpperCase()}</Text>
-            </View>
+            <MealDescription complexity={data.complexity}
+                             duration={data.duration}
+                             affordability={data.affordability}
+            />
         </Pressable>
 
     )
@@ -60,13 +60,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginVertical: 10,
-    },
-    details: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        padding: 5,
         marginVertical: 10,
     }
 })
