@@ -7,6 +7,8 @@ import MealsDetailScreen from "./Screens/MealsDetailScreen";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {Ionicons} from "@expo/vector-icons";
 import FavouriteScreen from "./Screens/FavouriteScreen";
+import {Provider} from "react-redux";
+import {store} from "./store/redux/store";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,7 +21,7 @@ const DrawerNavigator = () => {
             headerTintColor: "black",
             drawerContentStyle: {backgroundColor: "#d09d78"},
             drawerActiveTintColor: 'white',
-            drawerInactiveTintColor:'black',
+            drawerInactiveTintColor: 'black',
             drawerActiveBackgroundColor: "#2a1f17"
         }}
     >
@@ -51,23 +53,26 @@ export default function App() {
 
     return (
         <>
-            <NavigationContainer>
+            <Provider store={store}>
+                <NavigationContainer>
 
-                <Stack.Navigator
-                    screenOptions={{
-                        headerStyle: {backgroundColor: "#9d7e67"},
-                        contentStyle: {backgroundColor: "#2a1f17"}
-                        // We can set headerTintColor : "red" for changing heading color.
-                        // We can set these properties for every or for individual screens
-                    }}
-                >
-                    <Stack.Screen name="Drawer" component={DrawerNavigator} options={{
-                        headerShown: false,
-                    }}/>
-                    <Stack.Screen name="Overview" component={MealsOverview}/>
-                    <Stack.Screen name="Detail" component={MealsDetailScreen}/>
-                </Stack.Navigator>
-            </NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerStyle: {backgroundColor: "#9d7e67"},
+                            contentStyle: {backgroundColor: "#2a1f17"}
+                            // We can set headerTintColor : "red" for changing heading color.
+                            // We can set these properties for every or for individual screens
+                        }}
+                    >
+                        <Stack.Screen name="Drawer" component={DrawerNavigator} options={{
+                            headerShown: false,
+                        }}/>
+                        <Stack.Screen name="Overview" component={MealsOverview}/>
+                        <Stack.Screen name="Detail" component={MealsDetailScreen}/>
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </Provider>
+
         </>
 
     );
