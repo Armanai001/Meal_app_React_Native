@@ -4,24 +4,39 @@ import List from "../Components/List";
 import MealDescription from "../Components/MealDescription";
 import {useLayoutEffect} from "react";
 import IconButton from "../Components/IconButton";
+import {useDispatch, useSelector} from "react-redux";
+import {addFavorite, removeFavorite} from "../store/redux/favourites";
 
 export default function MealsDetailScreen({route, navigation}: any) {
     const mealId = route.params.mealId
     const meal = MEALS.find(item => item.id === mealId)
 
-    const favoriteButtonHandler = () => {
-        console.log('favoriteButtonHandler')
+    // favourite meal related stuff
+    const favouriteMealIds = useSelector((state: { favouriteMeals: { ids: string[] } }) => state.favouriteMeals.ids)
+    const dispatch = useDispatch()
+    const mealIsFavourite = favouriteMealIds.includes(mealId)
+
+
+    const favouriteButtonHandler = () => {
+        if (mealIsFavourite) {
+            dispatch(removeFavorite({id: mealId}))
+        } else {
+            dispatch(addFavorite({id: mealId}))
+        }
     }
 
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
                 return (
-                    <IconButton color='white' icon='star' onPress={favoriteButtonHandler}/>
+                    <IconButton color='white'
+                                icon={mealIsFavourite ? 'star' : 'star-outline'}
+                                onPress={favouriteButtonHandler}
+                    />
                 )
             }
         });
-    }, [favoriteButtonHandler, navigation])
+    }, [favouriteButtonHandler, navigation])
 
     return (
         <View>
@@ -39,10 +54,10 @@ export default function MealsDetailScreen({route, navigation}: any) {
                                              affordability={meal.affordability}/>
                         </View>
                         <View>
-                            <List title="Ingredients" data={meal.ingredients}/>
+                            <List title="INGREDIENTS" data={meal.ingredients}/>
                         </View>
                         <View>
-                            <List title="Steps" data={meal.steps}/>
+                            <List title="STEPS" data={meal.steps}/>
                         </View>
                     </ScrollView>
                 </>
@@ -59,6 +74,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         borderStyle: 'solid',
         borderWidth: 3,
+        marginTop: 5,
         borderRadius: 10,
         borderColor: '#180b0b',
         backgroundColor: '#180b0b'
