@@ -21,7 +21,7 @@ export default function FavouriteScreen() {
         {
             favouriteMeal.length === 0 ? <EmptyView/> : <ScrollView>
                 {
-                    favouriteMeal.map(item => <View style={styles.container}>
+                    favouriteMeal.map(item => <View key={item.id}  style={styles.container}>
                             <MealItem key={item.id} data={item}/>
                         </View>
                     )
